@@ -1,7 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react';
-import DataTable from './DataTable';
+
+
 import Link from 'next/link';
+import { TableScrollArea } from './DataTable';
+import { ButtonProgress } from './Button';
 
 const FetchingData = () => {
   const [data, setData] = useState([]);
@@ -35,9 +38,10 @@ const FetchingData = () => {
       component: (dataALl) => {
         return (
           <Link href={`/posts/${dataALl}`}>
-            Show
+          <ButtonProgress/>
+          
           </Link>
-        );
+        )
       },
     },
   ]
@@ -57,7 +61,7 @@ const FetchingData = () => {
   }, []);
 
   
-  return <DataTable data={data}  headers={headers} />;
+  return (<TableScrollArea data={data}  headers={headers} />)
 };
 
 export default FetchingData;
