@@ -1,36 +1,82 @@
-'use client'
+// 'use client'
 
-const DataTable = ({ data, headers }) => {
+// const DataTable = ({ data, headers }) => {
 
-return (
-  <>
-    <div className="table-container" >
-      <table border="0.5" style={{ width: "100%" }}>
-        <thead>
-          <tr>
+// return (
+//   <>
+//     <div className="table-container" >
+//       <table border="0.5" style={{ width: "100%" }}>
+//         <thead>
+//           <tr>
         
           
-            {headers.map((ittm,headerIndex) => {
+//             {headers.map((ittm,headerIndex) => {
             
-              return <th key={headerIndex}>{ittm.value}</th>;
-            })}
-            </tr>
+//               return <th key={headerIndex}>{ittm.value}</th>;
+//             })}
+//             </tr>
           
-        </thead>
+//         </thead>
 
-        <tbody>
-          {data.map((item,index) => (
-            <tr key={index+1}>
-              {headers.map((ittm,newIndex) => {
-                return <td key={newIndex}>{ittm.component ? ittm.component(item[ittm.key]): item[ittm.key]}</td>;
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </>
-);
-};
+//         <tbody>
+//           {data.map((item,index) => (
+//             <tr key={index+1}>
+//               {headers.map((ittm,newIndex) => {
+//                 return <td key={newIndex}>{ittm.component ? ittm.component(item[ittm.key]): item[ittm.key]}</td>;
+//               })}
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     </div>
+//   </>
+// );
+// };
 
-export default DataTable;
+// export default DataTable;
+'use client'
+import { useState } from 'react';
+import cx from 'clsx';
+import { ScrollArea, Table } from '@mantine/core';
+ import classes from '../style/TableScrollArea.module.css'
+
+export function TableScrollArea({data,headers}) {
+  const [scrolled, setScrolled] = useState(false);
+
+
+  const rows = data.map((row) => (
+    <Table.Tr key={row.id}>
+      {headers.map((ittem)=>{
+        return(
+
+          <Table.Td>{ittem.component ? ittem.component(row[ittem.key]):row[ittem.key]}</Table.Td>
+        )
+      }
+
+      )
+      }
+    </Table.Tr>
+  ));
+
+  
+
+  return (
+    <ScrollArea  onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+      <Table miw={700}>
+        <Table.Thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
+          <Table.Tr>{
+            
+      headers.map((itte)=>{
+        return(
+          <Table.Th>{itte.value}</Table.Th>
+        )
+      })}
+
+            
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{rows}</Table.Tbody>
+      </Table>
+    </ScrollArea>
+  );
+}

@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { IconAt, IconPhoneCall } from '@tabler/icons-react';
+import { Avatar, Group, Text } from '@mantine/core';
+import classes from '../style/UserInfoIcons.module.css';
 
 const Comments = ({ postId }) => {
 const [details, setDetails] = useState([]);
@@ -23,25 +25,41 @@ fetchDetails();
 return (
 <div>
     <b className="comments-header">Comments</b>
-    {details.map((itt) => {
+    {details.map((itt,index) => {
     return (
-        <div key={itt.id} className="card">
-        <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-            <FaUserCircle
-                className="user-icon"
-                style={{ fontSize: "60px", color: "#aaaaf8" }}
-            />{" "}
-            <div className="card-content" style={{ margin: "5px 10px" }}>
-                <span className="user-name">{itt.name}</span>
-                <span className="user-email">{itt.email}</span>
-            </div>
-            </div>
-            <div>
-            <p className="user-comment">{itt.body}</p>
-            </div>
+        <div key={index}>
+      <Group wrap="nowrap">
+        <Avatar
+          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png"
+          size={60}
+          radius="md"
+        />
+        <div>
+          <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
+           {itt.name}
+          </Text>
+
+          <Text fz="lg" fw={500} className={classes.name}>
+            
+          </Text>
+
+          <Group wrap="nowrap" gap={10} mt={3}>
+            <IconAt stroke={1.5} size={16} className={classes.icon} />
+            <Text fz="xs" c="dimmed">
+            {itt.email}
+            </Text>
+          </Group>
+          <Group wrap="nowrap" gap={10} mt={3}>
+            <IconAt stroke={1.5} size={10} className={classes.icon} />
+            <Text fz="xs" c="dimmed">
+            {itt.body}
+            </Text>
+          </Group>
+
+        
         </div>
-        </div>
+      </Group>
+    </div>
     );
     })}
 </div>
