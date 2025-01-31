@@ -44,13 +44,19 @@ export function TableScrollArea({data,headers}) {
   const [scrolled, setScrolled] = useState(false);
 
 
-  const rows = data.map((row) => (
-    <Table.Tr key={row.id}>
-      {headers.map((ittem)=>{
+  const rows = data.map((row,rowIndex) => (
+    // <Table.Tr key={row.id}>
+    <Table.Tr key={row.id || rowIndex}> 
+      {headers.map((ittem,colIndex)=>{
         return(
 
-          <Table.Td>{ittem.component ? ittem.component(row[ittem.key]):row[ittem.key]}</Table.Td>
+          // 
+          // <Table.Td>{ittem.component ? ittem.component(row[ittem.key]):row[ittem.key]}</Table.Td>
+          <Table.Td key={colIndex}>
+                  {ittem.component ? ittem.component(row[ittem.key]) : row[ittem.key]}
+                </Table.Td>
         )
+
       }
 
       )
@@ -66,9 +72,9 @@ export function TableScrollArea({data,headers}) {
         <Table.Thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
           <Table.Tr>{
             
-      headers.map((itte)=>{
+      headers.map((itte,index)=>{
         return(
-          <Table.Th>{itte.value}</Table.Th>
+          <Table.Th key={index}>{itte.value}</Table.Th>
         )
       })}
 
