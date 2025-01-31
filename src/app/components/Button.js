@@ -30,7 +30,7 @@ export function ButtonProgress() {
       color={loaded ? 'teal' : theme.primaryColor}
     >
       <div className={classes.label}>
-        {progress !== 0 ? 'Uploading files' : loaded ? 'Files uploaded' : 'Upload files'}
+        {progress !== 0 ? 'Show details' : loaded ? 'Showing details' : 'Show details'}
       </div>
       {progress !== 0 && (
         <Progress
